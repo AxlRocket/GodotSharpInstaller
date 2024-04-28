@@ -19,6 +19,6 @@ In the main form app :
 
 In the system tray icon :
 
- - You can manually check for an update
  - You can open the main form app
+ - You can manually check for an update
  - You can close GodotSharpInstaller
