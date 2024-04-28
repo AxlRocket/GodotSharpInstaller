@@ -1,9 +1,7 @@
 # GodotSharpInstaller
 
-I was bored to see if there was an update to Godot.NET 4
+I was bored to check manually if a Godot.NET 4 update was available, so I created this little soft that automaticcaly checks for updates.
 
-I created this little software that checks if an update is available.
+Additionally, it can "install" and "uninstall" every Godot.NET version (if it was installed from GodotInstaller)
 
-It can also allow you to install Godot.NET
-
-Installing multiple versions is possible 
+Of course, it is possible to install several versions (Godot 4.2.1 and Godot 3.5.3 for example)
