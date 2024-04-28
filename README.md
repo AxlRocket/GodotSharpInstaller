@@ -8,7 +8,9 @@ Of course, it is possible to install several versions (Godot 4.2.1 and Godot 3.5
 
 ## About
 
-The app is accessible in the system tray. By double click it you can access the main form app and "install" or "uninstall" all the versions you want
+The app is accessible in the system tray. By double click the system tray icon you can access the main form app and "install" or "uninstall" all the versions you want
+
+In the main form app :
 
 If you want the app to be started with window don't forget to check the option in the "options" menu
 
