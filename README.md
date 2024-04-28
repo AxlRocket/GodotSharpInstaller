@@ -12,6 +12,6 @@ The app is accessible in the system tray. By double click the system tray icon y
 
 In the main form app :
 
-If you want the app to be started with window don't forget to check the option in the "options" menu
+ - If you want the app to be started with window don't forget to check the option in the "options" menu
 
-If you want the app to do not check the Godot 4 versions don't forget to check it too in the "options" menu
+ - If you want the app to do not check the Godot 4 versions don't forget to check it too in the "options" menu
