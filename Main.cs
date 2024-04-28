@@ -57,7 +57,7 @@ namespace GogotSharp
 
             refreshList();
 
-            updateInfoLabel(releases.Count + " releases found");
+            updateInfoLabel("Releases found");
         }
 
         private async void checkUpadtes()
@@ -70,7 +70,7 @@ namespace GogotSharp
 
             releases = await client.Repository.Release.GetAll("godotengine", "godot");
 
-            updateInfoLabel(releases.Count + " releases found");
+            updateInfoLabel("Releases found");
 
             refreshList();
 
@@ -86,23 +86,30 @@ namespace GogotSharp
 
             for (int i = 0; i < releases.Count; i++)
             {
-                if (Settings.Default.IgnoreGodotFour)
+                try
                 {
-                    if (!releases.ElementAt(i).TagName[0].Equals('4'))
+                    if (releases.ElementAt(i).Assets.Select(m => m).Where(j => j.Name.Contains("mono_win64.zip")).FirstOrDefault().Name != null)
                     {
-                        Invoke(new Action(() =>
+                        if (Settings.Default.IgnoreGodotFour)
                         {
-                            godotVersionSelect.Items.Add(releases.ElementAt(i).TagName);
-                        }));
+                            if (!releases.ElementAt(i).TagName[0].Equals('4'))
+                            {
+                                Invoke(new Action(() =>
+                                {
+                                    godotVersionSelect.Items.Add(releases.ElementAt(i).TagName);
+                                }));
+                            }
+                        }
+                        else
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                godotVersionSelect.Items.Add(releases.ElementAt(i).TagName);
+                            }));
+                        }
                     }
                 }
-                else
-                {
-                    Invoke(new Action(() =>
-                    {
-                        godotVersionSelect.Items.Add(releases.ElementAt(i).TagName);
-                    }));
-                }
+                catch { }
             }
 
             Invoke(new Action(() =>
@@ -111,7 +118,7 @@ namespace GogotSharp
             }));
         }
 
-        public void activateButtons()
+        public void activateButtons(bool force = false)
         {
             if (InvokeRequired)
             {
@@ -119,7 +126,7 @@ namespace GogotSharp
                 {
                     godotVersionSelect.Enabled = true;
 
-                    if (!Settings.Default.InstalledVersion[0].Equals("-"))
+                    if (!Settings.Default.InstalledVersion[0].Equals("-") || force)
                     {
                         godotInstall.Enabled = false;
                         godotUninstall.Enabled = true;
@@ -135,7 +142,7 @@ namespace GogotSharp
             {
                 godotVersionSelect.Enabled = true;
 
-                if (!Settings.Default.InstalledVersion[0].Equals("-"))
+                if (!Settings.Default.InstalledVersion[0].Equals("-") || force)
                 {
                     godotInstall.Enabled = false;
                     godotUninstall.Enabled = true;
@@ -194,7 +201,6 @@ namespace GogotSharp
         {
             if (Settings.Default.InstalledVersion.Contains(godotVersionSelect.SelectedItem.ToString()))
             {
-                Console.WriteLine(Settings.Default.InstalledVersion.Contains(godotVersionSelect.SelectedItem.ToString()));
                 godotInstall.Enabled = false;
                 godotUninstall.Enabled = true;
             }
@@ -254,16 +260,33 @@ namespace GogotSharp
                 Console.WriteLine(ex.ToString());
             }
 
-            activateButtons();
+            activateButtons(true);
         }
 
         private void godotUninstall_Click(object sender, EventArgs e)
         {
+            disableButtons();
+
             string version = godotVersionSelect.SelectedItem.ToString();
 
-            Directory.Delete(Path.Combine(INSTALL_PATH, "Godot_v" + version + "_mono_win64"), true);
+            try
+            {
+                Directory.Delete(Path.Combine(INSTALL_PATH, "Godot_v" + version + "_mono_win64"), true);
 
-            updateInfoLabel("Godot " + version + " uninstalled");
+                updateInfoLabel("Godot " + version + " uninstalled");
+
+                Settings.Default.InstalledVersion.Remove(version);
+
+                Settings.Default.Save();
+            }
+            catch 
+            {
+                Settings.Default.InstalledVersion.Remove(version);
+
+                Settings.Default.Save();
+            }
+
+            activateButtons();
         }
 
         void zip_ExtractProgress(object sender, ExtractProgressEventArgs e)

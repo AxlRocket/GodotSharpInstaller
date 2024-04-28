@@ -112,11 +112,35 @@ namespace GogotSharp
 
             if (mainApp != null) mainApp.activateButtons();
 
-            if (!Settings.Default.InstalledVersion.Contains(releases.ElementAt(0).Name))
+            if (Settings.Default.IgnoreGodotFour)
             {
-                new ToastContentBuilder()
-                .AddText("New version available : " + releases.ElementAt(0).Name)
-                .Show();
+                if (!Settings.Default.InstalledVersion.Contains(releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name))
+                {
+                    new ToastContentBuilder()
+                    .AddText("New version available : " + releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name)
+                    .Show();
+                }
+                else
+                {
+                    new ToastContentBuilder()
+                    .AddText("You got the last version")
+                    .Show();
+                }
+            }
+            else
+            {
+                if (!Settings.Default.InstalledVersion.Contains(releases.ElementAt(0).Name))
+                {
+                    new ToastContentBuilder()
+                    .AddText("New version available : " + releases.ElementAt(0).Name)
+                    .Show();
+                }
+                else
+                {
+                    new ToastContentBuilder()
+                    .AddText("You got the last version")
+                    .Show();
+                }
             }
 
             canBeOpened = true;
