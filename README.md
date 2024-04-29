@@ -27,8 +27,6 @@ In the system tray icon :
  
 ## Technical information
 
-The app is "installing" versions of Godot in 
-```%Appdata%/Local/GodotSharpApp```
+The app is "installing" versions of Godot in ```C:/Users/%YourUserName/AppData/Local/GodotSharpApp```
 
-If the "Start with Windows" option is activated, a registry key is created at 
-```HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run```
+If the "Start with Windows" option is activated, a registry key is created at ```HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run```
