@@ -28,7 +28,7 @@ In the system tray icon :
 ## Technical information
 
 The program is "installing" versions of Godot in  
-```C:/Users/%YourUserName%/AppData/Local/GodotSharpApp```  
+```C:/Users/%YourUserName%/AppData/Local/GodotSharpInstaller```  
 > The AppData folder is hiden by default see [this link](https://support.microsoft.com/en-us/windows/view-hidden-files-and-folders-in-windows-97fbc472-c603-9d90-91d0-1166d1d9f4b5#WindowsVersion=Windows_11)
 
 If the "Start with Windows" option is activated, a registry key is created at  
