@@ -102,47 +102,60 @@ namespace GogotSharp
         {
             canBeOpened = false;
 
-            var client = new GitHubClient(new ProductHeaderValue("godotengine"));
-
-            if (mainApp != null) mainApp.updateInfoLabel("Checking releases");
-
-            releases = await client.Repository.Release.GetAll("godotengine", "godot");
-
-            if (mainApp != null) mainApp.updateInfoLabel(releases.Count + " releases found");
-
-            if (mainApp != null) mainApp.activateButtons();
-
-            if (Settings.Default.IgnoreGodotFour)
+            try
             {
-                if (!Settings.Default.InstalledVersion.Contains(releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name))
+                var client = new GitHubClient(new ProductHeaderValue("godotengine"));
+
+                mainApp?.updateInfoLabel("Checking releases");
+
+                releases = await client.Repository.Release.GetAll("godotengine", "godot");
+
+                mainApp?.updateInfoLabel("Releases found");
+
+                mainApp?.enableButtons();
+
+                mainApp?.refreshList();
+
+                if (Settings.Default.IgnoreGodotFour)
                 {
-                    new ToastContentBuilder()
-                    .AddText("New version available : " + releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name)
-                    .Show();
+                    if (!Settings.Default.InstalledVersion.Contains(releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name))
+                    {
+                        new ToastContentBuilder()
+                        .AddText("New version available : " + releases.Select(m => m).Where(j => j.Name.StartsWith("3.")).FirstOrDefault().Name)
+                        .Show();
+                    }
+                    else
+                    {
+                        new ToastContentBuilder()
+                        .AddText("You got the last version")
+                        .Show();
+                    }
                 }
                 else
                 {
-                    new ToastContentBuilder()
-                    .AddText("You got the last version")
-                    .Show();
+                    if (!Settings.Default.InstalledVersion.Contains(releases.ElementAt(0).Name))
+                    {
+                        new ToastContentBuilder()
+                        .AddText("New version available : " + releases.ElementAt(0).Name)
+                        .Show();
+                    }
+                    else
+                    {
+                        new ToastContentBuilder()
+                        .AddText("You are up to date")
+                        .Show();
+                    }
                 }
             }
-            else
+            catch
             {
-                if (!Settings.Default.InstalledVersion.Contains(releases.ElementAt(0).Name))
-                {
-                    new ToastContentBuilder()
-                    .AddText("New version available : " + releases.ElementAt(0).Name)
-                    .Show();
-                }
-                else
-                {
-                    new ToastContentBuilder()
-                    .AddText("You got the last version")
-                    .Show();
-                }
-            }
+                mainApp?.updateInfoLabel("Network error");
 
+                new ToastContentBuilder()
+                .AddText("Cannot check for updates. Verify your internet connection")
+                .Show();
+            }
+            
             canBeOpened = true;
         }
     }

@@ -39,6 +39,7 @@
             this.info = new System.Windows.Forms.Label();
             this.godotVersionSelect = new System.Windows.Forms.ComboBox();
             this.godotBtn = new System.Windows.Forms.Button();
+            this.whatNew = new System.Windows.Forms.LinkLabel();
             this.formStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             this.formStrip.Name = "formStrip";
             this.formStrip.Padding = new System.Windows.Forms.Padding(0);
             this.formStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.formStrip.Size = new System.Drawing.Size(272, 24);
+            this.formStrip.Size = new System.Drawing.Size(272, 30);
             this.formStrip.TabIndex = 0;
             this.formStrip.Text = "FormStrip";
             // 
@@ -66,7 +67,7 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(75, 30);
             this.fileToolStripMenuItem.Text = "Options";
             // 
             // startWithWindowsToolStripMenuItem
@@ -96,7 +97,7 @@
             // godotInstall
             // 
             this.godotInstall.Enabled = false;
-            this.godotInstall.Location = new System.Drawing.Point(60, 210);
+            this.godotInstall.Location = new System.Drawing.Point(60, 230);
             this.godotInstall.Name = "godotInstall";
             this.godotInstall.Size = new System.Drawing.Size(150, 30);
             this.godotInstall.TabIndex = 2;
@@ -107,7 +108,7 @@
             // godotUninstall
             // 
             this.godotUninstall.Enabled = false;
-            this.godotUninstall.Location = new System.Drawing.Point(60, 250);
+            this.godotUninstall.Location = new System.Drawing.Point(60, 280);
             this.godotUninstall.Name = "godotUninstall";
             this.godotUninstall.Size = new System.Drawing.Size(150, 30);
             this.godotUninstall.TabIndex = 3;
@@ -118,7 +119,7 @@
             // info
             // 
             this.info.AutoSize = true;
-            this.info.Location = new System.Drawing.Point(15, 310);
+            this.info.Location = new System.Drawing.Point(15, 340);
             this.info.Name = "info";
             this.info.Size = new System.Drawing.Size(0, 16);
             this.info.TabIndex = 19;
@@ -147,10 +148,25 @@
             this.godotBtn.UseVisualStyleBackColor = true;
             this.godotBtn.Click += new System.EventHandler(this.godotBtn_Click);
             // 
+            // whatNew
+            // 
+            this.whatNew.AutoSize = true;
+            this.whatNew.Location = new System.Drawing.Point(60, 190);
+            this.whatNew.MaximumSize = new System.Drawing.Size(150, 16);
+            this.whatNew.MinimumSize = new System.Drawing.Size(150, 16);
+            this.whatNew.Name = "whatNew";
+            this.whatNew.Size = new System.Drawing.Size(150, 16);
+            this.whatNew.TabIndex = 21;
+            this.whatNew.TabStop = true;
+            this.whatNew.Text = "See what\'s new";
+            this.whatNew.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.whatNew.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.whatNew_LinkClicked);
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(272, 323);
+            this.ClientSize = new System.Drawing.Size(272, 353);
+            this.Controls.Add(this.whatNew);
             this.Controls.Add(this.godotVersionSelect);
             this.Controls.Add(this.info);
             this.Controls.Add(this.godotUninstall);
@@ -162,9 +178,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.formStrip;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(290, 370);
+            this.MaximumSize = new System.Drawing.Size(290, 400);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(290, 370);
+            this.MinimumSize = new System.Drawing.Size(290, 400);
             this.Name = "Main";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -190,6 +206,7 @@
         private System.Windows.Forms.Label info;
         private System.Windows.Forms.ToolStripMenuItem ignoreGodot4ToolStripMenuItem;
         private System.Windows.Forms.ComboBox godotVersionSelect;
+        private System.Windows.Forms.LinkLabel whatNew;
     }
 }
 
